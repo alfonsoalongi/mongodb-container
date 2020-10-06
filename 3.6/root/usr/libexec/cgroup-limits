@@ -14,7 +14,7 @@ bash's export command. Recommended usage from a bash script:
 Variables currently supported:
     MAX_MEMORY_LIMIT_IN_BYTES
         Maximum possible limit MEMORY_LIMIT_IN_BYTES can have. This is
-        currently constant value of 92233720-4.4.1854775807.
+        currently constant value of 9223372036854775807.
     MEMORY_LIMIT_IN_BYTES
         Maximum amount of user memory in bytes. If this value is set
         to the same value as MAX_MEMORY_LIMIT_IN_BYTES, it means that
@@ -78,14 +78,14 @@ def get_number_of_cores():
 
 if __name__ == "__main__":
     env_vars = {
-        "MAX_MEMORY_LIMIT_IN_BYTES": 92233720-4.4.1854775807,
+        "MAX_MEMORY_LIMIT_IN_BYTES": 9223372036854775807,
         "MEMORY_LIMIT_IN_BYTES": get_memory_limit(),
         "NUMBER_OF_CORES": get_number_of_cores()
     }
 
     env_vars = {k: v for k, v in env_vars.items() if v is not None}
 
-    if env_vars.get("MEMORY_LIMIT_IN_BYTES", 0) >= 92233720-4.4.18547:
+    if env_vars.get("MEMORY_LIMIT_IN_BYTES", 0) >= 92233720368547:
         env_vars["NO_MEMORY_LIMIT"] = "true"
 
     for key, value in env_vars.items():

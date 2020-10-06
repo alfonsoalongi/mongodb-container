@@ -1,4 +1,4 @@
-FROM rhscl/s2i-core-rhel7
+FROM centos/s2i-core-centos7
 
 ENV SUMMARY="MongoDB NoSQL database server" \
     DESCRIPTION="MongoDB (from humongous) is a free and open-source \
@@ -9,23 +9,22 @@ container image contains programs to run mongod server."
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
-      io.k8s.display-name="MongoDB 4.4.1" \
+      io.k8s.display-name="MongoDB 3.6" \
       io.openshift.expose-services="27017:mongodb" \
-      io.openshift.tags="database,mongodb,rh-mongodb-4.4.1" \
-      com.redhat.component="rh-mongodb-4.4.1-container" \
-      name="rhscl/mongodb--4.4.1-rhel7" \
-      usage="docker run -d -e MONGODB_ADMIN_PASSWORD=my_pass rhscl/mongodb--4.4.1-rhel7" \
+      io.openshift.tags="database,mongodb,rh-mongodb36" \
+      com.redhat.component="rh-mongodb36-container" \
+      name="centos/mongodb-36-centos7" \
+      usage="docker run -d -e MONGODB_ADMIN_PASSWORD=my_pass centos/mongodb-36-centos7" \
       version="1" \
-      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#rhel" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
-ENV MONGODB_VERSION=4.4.1 \
+ENV MONGODB_VERSION=3.6 \
     # Set paths to avoid hard-coding them in scripts.
     APP_DATA=/opt/app-root/src \
     HOME=/var/lib/mongodb \
     CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mongodb \
     # Incantations to enable Software Collections on `bash` and `sh -i`.
-    ENABLED_COLLECTIONS=rh-mongodb-4.4.1 \
+    ENABLED_COLLECTIONS=rh-mongodb36 \
     BASH_ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     PROMPT_COMMAND=". \${CONTAINER_SCRIPTS_PATH}/scl_enable"
@@ -35,9 +34,8 @@ EXPOSE 27017
 ENTRYPOINT ["container-entrypoint"]
 CMD ["run-mongod"]
 
-RUN yum install -y yum-utils && \
-    prepare-yum-repositories rhel-server-rhscl-7-rpms && \
-    INSTALL_PKGS="bind-utils gettext iproute rsync tar hostname rh-mongodb-4.4.1-mongodb rh-mongodb-4.4.1 rh-mongodb-4.4.1-mongo-tools rh-mongodb-4.4.1-syspaths groff-base" && \
+RUN yum install -y centos-release-scl && \
+    INSTALL_PKGS="bind-utils gettext iproute rsync tar rh-mongodb36-mongodb rh-mongodb36 rh-mongodb36-mongo-tools rh-mongodb36-syspaths groff-base" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
