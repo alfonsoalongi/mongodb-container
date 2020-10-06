@@ -35,7 +35,8 @@ ENTRYPOINT ["container-entrypoint"]
 CMD ["run-mongod"]
 
 COPY mongodb-org-4.4.repo /etc/yum.repos.d/mongodb-org-4.4.repo
-RUN yum install -y centos-release-scl && \
+RUN yum update -y && \
+    yum install -y centos-release-scl && \
     INSTALL_PKGS="bind-utils gettext iproute rsync tar mongodb-org-4.4.1 mongodb-org-server-4.4.1 mongodb-org-shell-4.4.1 mongodb-org-mongos-4.4.1 mongodb-org-tools-4.4.1 groff-base" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
