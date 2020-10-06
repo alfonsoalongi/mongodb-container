@@ -35,7 +35,7 @@ ENTRYPOINT ["container-entrypoint"]
 CMD ["run-mongod"]
 
 RUN yum install -y centos-release-scl && \
-    INSTALL_PKGS="bind-utils gettext iproute rsync tar rh-mongodb-4.4.1-mongodb rh-mongodb-4.4.1 rh-mongodb-4.4.1-mongo-tools rh-mongodb-4.4.1-syspaths groff-base" && \
+    INSTALL_PKGS="bind-utils gettext iproute rsync tar mongodb-org-4.4.1 mongodb-org-server-4.4.1 mongodb-org-shell-4.4.1 mongodb-org-mongos-4.4.1 mongodb-org-tools-4.4.1 groff-base" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
