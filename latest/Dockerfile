@@ -34,6 +34,7 @@ EXPOSE 27017
 ENTRYPOINT ["container-entrypoint"]
 CMD ["run-mongod"]
 
+COPY mongodb-org-4.4.repo /etc/yum.repos.d/mongodb-org-4.4.repo
 RUN yum install -y centos-release-scl && \
     INSTALL_PKGS="bind-utils gettext iproute rsync tar mongodb-org-4.4.1 mongodb-org-server-4.4.1 mongodb-org-shell-4.4.1 mongodb-org-mongos-4.4.1 mongodb-org-tools-4.4.1 groff-base" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
@@ -42,7 +43,7 @@ RUN yum install -y centos-release-scl && \
 
 COPY s2i/bin/ $STI_SCRIPTS_PATH
 
-ADD root /
+COPY root /
 
 # Container setup
 RUN : > /etc/mongod.conf && \
