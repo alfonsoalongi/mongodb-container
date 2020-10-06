@@ -11,8 +11,8 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="MongoDB 4.4.1" \
       io.openshift.expose-services="27017:mongodb" \
-      io.openshift.tags="database,mongodb,rh-mongodb-4.4.1" \
-      com.redhat.component="rh-mongodb-4.4.1-container" \
+      io.openshift.tags="database,mongodb,mongodb-org-4.4.1" \
+      com.redhat.component="mongodb-org-4.4.1-container" \
       name="centos/mongodb--4.4.1" \
       usage="docker run -d -e MONGODB_ADMIN_PASSWORD=my_pass centos/mongodb--4.4.1" \
       version="1" \
@@ -24,7 +24,7 @@ ENV MONGODB_VERSION=4.4.1 \
     HOME=/var/lib/mongodb \
     CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mongodb \
     # Incantations to enable Software Collections on `bash` and `sh -i`.
-    ENABLED_COLLECTIONS=rh-mongodb-4.4.1 \
+    ENABLED_COLLECTIONS=mongodb-org-4.4.1 \
     BASH_ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     PROMPT_COMMAND=". \${CONTAINER_SCRIPTS_PATH}/scl_enable"

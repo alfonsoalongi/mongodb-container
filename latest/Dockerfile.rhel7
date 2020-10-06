@@ -11,8 +11,8 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="MongoDB 4.4.1" \
       io.openshift.expose-services="27017:mongodb" \
-      io.openshift.tags="database,mongodb,rh-mongodb-4.4.1" \
-      com.redhat.component="rh-mongodb-4.4.1-container" \
+      io.openshift.tags="database,mongodb,mongodb-org-4.4.1" \
+      com.redhat.component="mongodb-org-4.4.1-container" \
       name="rhscl/mongodb--4.4.1-rhel7" \
       usage="docker run -d -e MONGODB_ADMIN_PASSWORD=my_pass rhscl/mongodb--4.4.1-rhel7" \
       version="1" \
@@ -25,7 +25,7 @@ ENV MONGODB_VERSION=4.4.1 \
     HOME=/var/lib/mongodb \
     CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/mongodb \
     # Incantations to enable Software Collections on `bash` and `sh -i`.
-    ENABLED_COLLECTIONS=rh-mongodb-4.4.1 \
+    ENABLED_COLLECTIONS=mongodb-org-4.4.1 \
     BASH_ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     ENV="\${CONTAINER_SCRIPTS_PATH}/scl_enable" \
     PROMPT_COMMAND=". \${CONTAINER_SCRIPTS_PATH}/scl_enable"
@@ -37,7 +37,7 @@ CMD ["run-mongod"]
 
 RUN yum install -y yum-utils && \
     prepare-yum-repositories rhel-server-rhscl-7-rpms && \
-    INSTALL_PKGS="bind-utils gettext iproute rsync tar hostname rh-mongodb-4.4.1-mongodb rh-mongodb-4.4.1 rh-mongodb-4.4.1-mongo-tools rh-mongodb-4.4.1-syspaths groff-base" && \
+    INSTALL_PKGS="bind-utils gettext iproute rsync tar hostname mongodb-org-4.4.1-mongodb mongodb-org-4.4.1 mongodb-org-4.4.1-mongo-tools mongodb-org-4.4.1-syspaths groff-base" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
