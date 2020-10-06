@@ -48,10 +48,10 @@ COPY root /
 # Container setup
 RUN : > /etc/mongod.conf && \
     mkdir -p ${HOME}/data && \
-    # Set owner 'mongodb:0' and 'g+rw(x)' permission - to avoid problems running container with arbitrary UID
+    # Set owner 'mongod:0' and 'g+rw(x)' permission - to avoid problems running container with arbitrary UID
     /usr/libexec/fix-permissions /etc/mongod.conf ${CONTAINER_SCRIPTS_PATH}/mongod.conf.template \
     ${HOME} ${APP_DATA}/.. && \
-    usermod -a -G root mongodb && \
+    usermod -a -G root mongod && \
     rpm-file-permissions
 
 VOLUME ["/var/lib/mongodb/data"]
